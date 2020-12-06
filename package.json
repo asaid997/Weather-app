@@ -1,0 +1,19 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.6",
+    "jquery": "^3.5.1",
+    "mongoose": "^5.11.4",
+    "urllib": "^2.36.1"
+  }
+}

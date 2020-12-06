@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+</head>
+
+<body style="margin: 0;">
+    <input id="city_to_search" value="tel aviv"><button id="search">search</button>
+
+    <div id="all_data_container">
+
+    </div>
+
+
+    <script id="weather-template" type="text/x-handlebars-template">
+        {{#each city}}
+        <div class="weather-container" data-id="{{_id}}">
+            {{#if inDataBase}}
+                <button class="remove-from-database database"><i class="fas fa-minus"></i></button> 
+            {{else}}
+                <button class="add-to-database database"><i class="fas fa-plus"></i></button> 
+            {{/if}}
+            <h4 class="name">{{name}}</h4>
+            <img src="http://openweathermap.org/img/wn/{{conditionPic}}@2x.png">
+            <div class="temperature">{{temperature}}</div>
+            <div class="condition">{{condition}}</div>
+        </div>
+        {{/each}}
+    </script>
+
+
+    <script src="./@fortawesome/fontawesome-free/js/all.js"></script>
+    <script src="./handlebars/dist/handlebars.js"></script>
+    <script src="./jquery/dist/jquery.js"></script>
+    <script src="server-manager.js"></script>
+    <script src="render.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
