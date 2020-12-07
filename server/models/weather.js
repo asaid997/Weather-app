@@ -1,12 +1,15 @@
 const mongoose = require('mongoose')
+mongoose.set('useFindAndModify',false)
 const Schema = mongoose.Schema
 
 const weatherSchema = new Schema({
-    name:  String,
+    name:  {type: String, unique: true},
     temperature: Number,
-    condition:  String,
-    conditionPic:   String,
-    inDataBase: Boolean
+    main: String,
+    condition: String,
+    timestamp: Number,
+    conditionPic: String,
+    isInDataBase: Boolean
 })
 
 const Weather = mongoose.model("weather", weatherSchema)

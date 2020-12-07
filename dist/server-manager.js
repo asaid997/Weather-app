@@ -1,29 +1,42 @@
 class ServerManager {
     cityData = []
-    id = 0
 
-    getRecipes = (ingredient,renderFunction) => $.get(`/recipes/${ingredient}`, recipes => renderFunction(recipes))
+    _getCityByName = cityName => this.cityData.find(city => city.name.toLowerCase() === cityName.toLowerCase())
+
+    _ifDoesntExist = cityName => this._getCityByName(cityName) ? false : true
 
     getDataFromDB = () => $.get(`/cities`, cities => this.cityData = cities)
 
-    getCityById = id => this.cityData.find(city => city._id === id)
+    getCityData = async cityName => {
+        if (this._ifDoesntExist(cityName))
+            await $.get(`/city/${cityName}`, city => city !== "city not found" ? this.cityData.push(city) : {})
+    }
 
-    //adds id for newly added cities to manage finding them more easily using one function "getCityById"
-    getCityData = async city => $.get(`/city/${city}`, _city => {
-        console.log(_city)
-        if(_city !== "city not found"){
-            _city._id = `${this.id++}`
-            console.log(_city._id)
-            this.cityData.push(_city)
-        }
-    })
-
-    //function handles the local id, it deletes the key so that a new _id is generated properly from mongoose
     saveCity = async city => {
-        city.inDataBase = true
-        delete city["_id"]
-        console.log(city)
-        const id = await $.post(`/city/${JSON.stringify(city)}`)
-        city._id = id
+        city.isInDataBase = true
+        await $.post(`/city/${JSON.stringify(city)}`)
+    }
+
+    removeCity = async cityName => {
+        const deletedSuccesfuly = await $.ajax({url: `/city/${cityName}`,type: 'DELETE'})
+        if (deletedSuccesfuly)
+            this.cityData.find(city => city.name === `${cityName}`).isInDataBase = false
+    }
+
+    refreshCity = async cityName => {
+        const index = this.cityData.findIndex(city => city.name === `${cityName}`)
+        let updated
+
+        //update database
+        if (this.cityData[index].isInDataBase) {
+            updated = await $.ajax({url: `/city/${cityName}`,type: 'PUT'})
+            if (updated === "Failure") 
+                return
+        }
+        //just fetch data(since its not in database)
+        else
+            updated = await $.get(`/city/${cityName}`, city => updated = city)
+            
+        this.cityData[index] = updated
     }
 }

@@ -2,30 +2,36 @@
 <html>
 
 <head>
-    <title>Title</title>
+    <title>Weather app</title>
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link rel="icon" href="https://icons-for-free.com/iconfiles/png/512/forecast+partly+cloudy+weather+icon-1320196484400215944.png">
 </head>
 
 <body style="margin: 0;">
-    <input id="city_to_search" value="tel aviv"><button id="search">search</button>
-
-    <div id="all_data_container">
-
+    <div id="input-container">
+        <input id="city_to_search" placeholder="City"><div id="search"><i class="fas fa-search"></i></div>
     </div>
 
+    <div id="all_data_container">
+        
+    </div>
 
     <script id="weather-template" type="text/x-handlebars-template">
         {{#each city}}
-        <div class="weather-container" data-id="{{_id}}">
-            {{#if inDataBase}}
-                <button class="remove-from-database database"><i class="fas fa-minus"></i></button> 
+        <div class="weather-container" style="background-image: linear-gradient(to left, rgb(255, {{hotColdColorAdjustor temperature}}, {{hotColdColorAdjustor temperature}}), {{getColor main}})"">
+            <!-- ******************************** didint see a better way to set the background image using handlebars ^^^ but hey it worked... let me know if there is an alternative -->
+            {{#if isInDataBase}}
+                <div class="remove-from-database database"><i class="fas fa-minus"></i></div>
             {{else}}
-                <button class="add-to-database database"><i class="fas fa-plus"></i></button> 
+                <div class="add-to-database database"><i class="fas fa-plus"></i></div>
             {{/if}}
-            <h4 class="name">{{name}}</h4>
+            <div class="refresh">Last updated: {{lastUpdated timestamp}} <i class="fas fa-sync refresh-image"></i></div>
+            <div class="name-condition-container">
+                <h2 class="name">{{name}}</h2>
+                <h4 class="condition">{{condition}}</h4>
+            </div>
             <img src="http://openweathermap.org/img/wn/{{conditionPic}}@2x.png">
             <div class="temperature">{{temperature}}</div>
-            <div class="condition">{{condition}}</div>
         </div>
         {{/each}}
     </script>

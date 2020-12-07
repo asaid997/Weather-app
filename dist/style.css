@@ -1,15 +1,97 @@
-#all_data_container{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 10px;
-    padding: 10px;
+body{
+    background-color: #9DC3C2;
 }
 
-.weather-container{
+#all_data_container {
     display: grid;
-    grid-template-rows: auto;
-    background-color: turquoise;
-    justify-content: center;
-    align-content: center;
+    color: black;
+}
+
+.weather-container {
+    display: grid;
+    align-items: center;
     padding: 10px;
+    justify-items: center;
+    position: relative;
+    grid-template-columns: 0fr 3fr repeat(2, 1fr);
+}
+
+#input-container {
+    margin: 10px;
+    height: 4vh;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#search {
+    position: absolute;
+    right: 10px;
+    font-size: 2.5vh;
+    cursor: pointer;
+    top: 5px;
+    color: #2d5e5c;
+}
+
+#search:active {
+    font-size: 3vh;
+}
+
+input {
+    padding-left: 20px;
+    font-size: large;
+    box-shadow: 2px 2px 2px black;
+    border: transparent;
+}
+
+.database {
+    cursor: pointer;
+    width: 150px;
+    height: 100%;
+    font-size: 2vw;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.database:active {
+    color: white;
+}
+
+.name-condition-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.name {
+    justify-self: center;
+    align-content: end;
+}
+
+img {
+    justify-self: end;
+}
+
+.temperature {
+    justify-self: start;
+}
+
+.condition {
+    align-content: start;
+    justify-self: center;
+}
+
+.refresh {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 1.2vh;
+}
+.refresh-image{
+    font-size: 1.8vh;
+}
+
+.refresh-image:active {
+    color: white;
 }
